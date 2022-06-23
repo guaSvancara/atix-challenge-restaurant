@@ -1,0 +1,263 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0", 
+      "title": "Challenge",
+      "description": "Challenge",
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "host": "localhost:8000",
+    "basePath": "/",
+    "tags": [
+      {
+        "name": "Pizza",
+        "description": "API for Pizza"
+      }
+    ],
+    "schemes": ["http"],
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+
+
+    "paths": {
+      "/allergens": {
+        "get": {
+          "tags": ["Pizza"],
+          "summary": "Validate if the recipes has allergens",
+          "parameters": [
+            {
+              "in": "query",
+              "name": "allergens",
+              "description": "",
+              "required": true,
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+            },
+            {
+              "in": "query",
+              "name": "recipe",
+              "description": "",
+              "required": true,
+                "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/hasAllergensResponse"
+              }
+            }
+          }
+        }
+      },
+      "/foodtypes": {
+        "get": {
+          "tags": ["Pizza"],
+          "summary": "Validate if the recipes has food types",
+          "parameters": [
+            {
+              "in": "query",
+              "name": "foodtype",
+              "description": "",
+              "required": true,
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+            },
+            {
+              "in": "query",
+              "name": "recipe",
+              "description": "",
+              "required": true,
+                "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/hasFoodTypesResponse"
+              }
+            }
+          }
+        }
+      },
+      "/removeallergens": {
+        "post": {
+          "tags": ["Pizza"],
+          "summary": "Remove allergens",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/deleteAllergensRequest"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/hasFoodTypesResponse"
+              }
+            }
+          }
+        }
+      },
+      "/removefoodtypes": {
+        "post": {
+          "tags": ["Pizza"],
+          "summary": "Remove fodd types",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/deleteFoodTypesRequest"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/hasFoodTypesResponse"
+              }
+            }
+          }
+        }
+      },
+      "/:recipe/calories": {
+        "get": {
+          "tags": ["Pizza"],
+          "summary": "Get pizza calories",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "recipe",
+              "description": "",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/getCaloriesResponse"
+              }
+            }
+          }
+        }
+      },
+      "/:recipe/doubleingredients": {
+        "post": {
+          "tags": ["Pizza"],
+          "summary": "double ingredients",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "recipe",
+              "description": "",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "in": "body",
+              "name": "body",
+              "description": "",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/doubleIngredientsRequest"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/getCaloriesResponse"
+              }
+            }
+          }
+        }
+      }
+    },
+  
+    "definitions": {
+      "deleteAllergensRequest": {
+        "required": ["allergens", "recipe"],
+        "properties": {
+          "allergens": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "recipe": {
+            "type": "string"
+          }
+        }
+      },
+      "hasAllergensResponse": {
+        "properties": {
+          "hasAllergen": {
+            "type": "boolean"
+          }
+        }
+      },
+      "deleteFoodTypesRequest": {
+        "required": ["foodtype", "recipe"],
+        "properties": {
+          "foodtype": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "recipe": {
+            "type": "string"
+          }
+        }
+      },
+      "hasFoodTypesResponse": {
+        "properties": {
+          "hasFoodType": {
+            "type": "boolean"
+          }
+        }
+      },
+      "getCaloriesResponse": {
+        "properties": {
+          "calories": {
+            "type": "number"
+          }
+        }
+      },
+      "doubleIngredientsRequest": {
+        "required": ["allergens"],
+        "properties": {
+          "ingredients": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+
+}
+  
